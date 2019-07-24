@@ -86,3 +86,9 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# rollup
+.rpt2_cache/
+
+# build output
+dist/

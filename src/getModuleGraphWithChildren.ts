@@ -16,7 +16,7 @@ let idCounter = 1;
  *
  * @param graph
  */
-export function getGraphWithChilren(
+export function getModuleGraphWithChildren(
   graph: ModuleGraph
 ): ModuleGraphWithChildren {
   const newGraph: ModuleGraphWithChildren = {};
