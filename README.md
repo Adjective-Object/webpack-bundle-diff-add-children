@@ -8,7 +8,8 @@ A utility to add children to the bundle graph produced by webpack-bundle-diff
 `yarn add webpack-bundle-diff-add-children`
 
 ```js
-const getModuleGraphWithChildren = require("webpack-bundle-diff-add-children");
+const getModuleGraphWithChildren = require("webpack-bundle-diff-add-children")
+  .getModuleGraphWithChildren;
 const deriveBundleData = require("webpack-bundle-diff").deriveBundleData;
 
 // Get your bundle stats somehow

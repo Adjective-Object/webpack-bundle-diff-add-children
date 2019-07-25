@@ -1,6 +1,5 @@
 export {
   ModuleGraphNodeWithChildren,
   ModuleGraphWithChildren,
-  getModuleGraphWithChildren,
-  getModuleGraphWithChildren as default
+  getModuleGraphWithChildren
 } from "./getModuleGraphWithChildren";
