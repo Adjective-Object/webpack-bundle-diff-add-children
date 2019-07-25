@@ -20,3 +20,11 @@ const data = deriveBundleData(webpackStats);
 // Add children to the graph
 const graphWithChildren = getModuleGraphWithChildren(stats.bundleData.graph);
 ```
+
+## Development
+
+```sh
+yarn # install dependencies
+yarn build # build.             Can also use `rollup -c`
+yarn watch # build with watch.  Can also use `rollup -cw`
+```
