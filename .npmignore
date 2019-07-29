@@ -1,0 +1,5 @@
+# don't bundle build inputs
+src
+#don't bundle build config
+rollup.config.js
+tsconfig.json
