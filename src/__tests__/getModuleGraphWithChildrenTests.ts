@@ -1,7 +1,7 @@
 import { ModuleGraph } from "webpack-bundle-diff";
-import { getGraphWithChilren } from "../getModuleGraphWithChildren";
+import { getModuleGraphWithChildren } from "../getModuleGraphWithChildren";
 
-describe("getGraphWithChilren", () => {
+describe("getModuleGraphWithChildren", () => {
   it("assigns unique IDs to all modules in the new graph", () => {
     const testGraph: ModuleGraph = {
       "lib/foo": {
@@ -18,7 +18,7 @@ describe("getGraphWithChilren", () => {
       }
     };
 
-    const childGraph = getGraphWithChilren(testGraph);
+    const childGraph = getModuleGraphWithChildren(testGraph);
 
     expect(childGraph["lib/foo"].id).toBeDefined();
     expect(childGraph["lib/bar"].id).toBeDefined();
@@ -47,7 +47,7 @@ describe("getGraphWithChilren", () => {
       }
     };
 
-    const childGraph = getGraphWithChilren(testGraph);
+    const childGraph = getModuleGraphWithChildren(testGraph);
 
     expect(childGraph["lib/foo"].children).toEqual([]);
     expect(childGraph["lib/bar"].children).toEqual(["lib/foo"]);
@@ -80,7 +80,7 @@ describe("getGraphWithChilren", () => {
     };
     const testGraphClone: ModuleGraph = JSON.parse(JSON.stringify(testGraph));
 
-    getGraphWithChilren(testGraph);
+    getModuleGraphWithChildren(testGraph);
 
     expect(testGraph).toEqual(testGraphClone);
   });
@@ -101,9 +101,38 @@ describe("getGraphWithChilren", () => {
       }
     };
 
-    const childGraph = getGraphWithChilren(testGraph);
+    const childGraph = getModuleGraphWithChildren(testGraph);
 
     expect(childGraph["lib/foo"].children).toEqual(["lib/bar"]);
     expect(childGraph["lib/bar"].children).toEqual(["lib/foo"]);
+  });
+  
+  it("Adds dependants in the same chunk groups", () => {
+    const testGraph: ModuleGraph = {
+      "lib/foo": {
+        namedChunkGroups: ["Mail", "Fake"],
+        parents: [],
+        name: "foo-graph",
+        size: 10
+      },
+      "lib/bar": {
+        namedChunkGroups: ["Mail", "Fake", "Chunk"],
+        name: "bar-graph",
+        parents: ["lib/foo"],
+        size: 10
+      },
+      "lib/baz": {
+        namedChunkGroups: ["Mail", "Chunk"],
+        name: "bar-graph",
+        parents: ["lib/foo"],
+        size: 10
+      }
+    };
+
+    const childGraph = getModuleGraphWithChildren(testGraph);
+
+    expect(childGraph["lib/foo"].dependencies).toEqual(["lib/bar"]);
+    expect(childGraph["lib/bar"].dependants).toEqual(["lib/foo"]);
+    expect(childGraph["lib/baz"].dependants).toEqual([]);
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "webpack-bundle-diff-add-children",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "author": "Max Huang-Hobbs <mhuan13@gmail.com>",
   "license": "MIT",
   "main": "dist/index.js",
@@ -9,7 +9,8 @@
   "repository": "github:Adjective-Object/webpack-bundle-diff-add-children",
   "scripts": {
     "build": "rollup -c",
-    "watch": "rollup -cw"
+    "watch": "rollup -cw",
+    "test": "jest src"
   },
   "dependencies": {
     "webpack-bundle-diff": "^0.5.0"

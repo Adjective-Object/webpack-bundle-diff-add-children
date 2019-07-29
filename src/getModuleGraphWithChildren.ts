@@ -7,6 +7,15 @@ export interface ModuleGraphWithChildren {
 export interface ModuleGraphNodeWithChildren extends ModuleGraphNode {
   id: number;
   children: string[];
+  // Children in the same bundles
+  dependants: string[];
+  // Children not in the same bundles
+  dependencies: string[];
+}
+
+const isSameBundle = (parent: ModuleGraphNodeWithChildren, child: ModuleGraphNodeWithChildren) => {
+  const children = new Set(child.namedChunkGroups)
+  return parent.namedChunkGroups.every(name => children.has(name));
 }
 
 let idCounter = 1;
@@ -32,6 +41,8 @@ export function getModuleGraphWithChildren(
       mod = JSON.parse(JSON.stringify(graph[moduleName]));
       mod.id = idCounter++;
       mod.children = [];
+      mod.dependants = [];
+      mod.dependencies = [];
       // add the new module to the new graph
       newGraph[moduleName] = mod;
     }
@@ -59,6 +70,10 @@ export function getModuleGraphWithChildren(
         }
 
         parentModule.children.push(moduleName);
+        if (isSameBundle(parentModule, mod)) {
+          parentModule.dependencies.push(moduleName);
+          mod.dependants.push(parentModuleName);
+        }
       }
     );
   }
