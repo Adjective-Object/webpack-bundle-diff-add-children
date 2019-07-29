@@ -1,7 +1,7 @@
 # webpack-bundle-diff-add-children
 
 A utility to add children to the bundle graph produced by webpack-bundle-diff
-[npm](https://www.npmjs.com/package/webpack-bundle-diff) [github](https://github.com/smikula/webpack-bundle-diff)
+([npm](https://www.npmjs.com/package/webpack-bundle-diff), [github](https://github.com/smikula/webpack-bundle-diff))
 
 ## Usage
 
